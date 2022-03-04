@@ -1,0 +1,173 @@
+## Pointer, Reference, Memory Address ##
+Pointer 
+	declaration using *
+		int *intPtr = &somevar
+	value is a memory address 
+	dereference with * to geta the value. 
+		int *intPtr = &somevar
+		*intPtr = 10
+	if pointer data type struct or class, use -> to access member. The accessed member becomes a normal variable. So, if the member is another  struct or class, can access the sub-member using dot
+		class *myclass = &myclass2
+		myclass->student.name
+	if printed, gives a memory address
+	if passed to a function, it's denoted using *
+		function(int *a, int *b)
+		 cout << a << endl; //prints memory address
+		 cout << *a << endl; //prints data pointed by "a"
+	if declared, can use it as though its a normal variable
+		int *a = &somevar
+		a = &somevar2
+
+Reference
+	Function normally pass by value. Changes to variable in function won't affect variable outside function
+	To pass by reference, use &
+		void function (int  &num1)
+		int num = 1
+		function(num)
+
+Memory Address of Variable
+	get memory address of variable using &
+		int num = 1
+		int *numPtr = &num
+
+## Struct ##
+Define
+	struct mystruct{
+		int a;
+		bool b;
+	};
+
+Declaration
+	test mytest = {1,false};
+	test mytestarr[] = {{1, false}, {2, true}}; 	
+
+## Array ##
+An array variable is a pointer. When printed, it gives a memory address
+Cannot copy array to another array. But array can be assigned to a pointer
+
+When pass array to function, we are passing the memory address of the first index
+So, the array variable is actually a pointer
+	void function(int a[])
+		cout << a gives us memory address
+		cout << *a gives us a[0]
+		cout << *a+1 gives us a[1]
+
+## Fast Exponential ##
+Log is opposite of power. So, if have a loop that divides, it'll be O(log n)
+
+## Vector ##
+The vector data and the vector data type may be stored on different memory. So, unlike array, you can't pass in the vector address and perform pointer arithmetic
+
+## Sort ##
+Selection sort not stable because it's finding the minimum element and swapping it 
+
+Insertion sort is stable because the relative order of duplicate element isn't changed
+
+Bubble sort is stable because the relative order of duplicate element isn't changed
+
+Counting sort need a bounded range
+
+## Stable Sort ##
+For sorting of the same key (same property used for sorting), the sort will still maintain the previous order
+E.g. excel sort by multiple column is stable sort as the second column sort doesn't affect the order of the first column sort
+
+One condition will decide if its a stable sort
+
+## In Place Sort ##
+Do we need another array to store the sort
+
+## Read ##
+Read up about counting sort
+
+## Time Complexity ##
+vector push_back() is O(1)
+vector insert is O(n)
+
+Flattened nested loop for the time complexity question that I wanted to ask. Inner runs n times, outer run n times
+
+For O(log n), it's normally a division or multiplication to reach the stop condition
+
+recurse(n-1) + recurse(n-1) is O(2^n)
+recurse(n/2) / recurse(n/2) is O(n)
+	Draw a tree recursion diagram to visualize it
+	Even though it's O(logn) due to division, the final branch is n times
+	
+If we get O(n^2 + n), we can simply take the largest n = O(n^2)
+	
+Ignore any constant. E.g, n/2 is still treated as n
+
+Fastest to slowest
+	O(1)
+	O(log n)
+	O(n)
+	O(nlog n)
+	O(n^c)
+	
+## Recurse ##
+If we need to update a result array, then the function sould return an integer with the amount of element in the result array so that the recursive function can update the correct index. In this scenario, the patterns are
+	1) a counter at the beginning
+	2) an end condition. Likely is N-1 < 0
+	3) the recursive function that adds to the counter. E.g., count = count + recurse()
+	4) an if condition to check if elements should be added. If yes, count++
+	5) a return of 1 to add to the counter for (3)
+
+One way to let the recurse start from the beginning is to pass in &a[1]. For each subsequent recurse, the array will be like this
+If we do this, then the counter that's passed into the array likely will only be used for the stop condition and not for the array index
+	Recurse 1
+	{1,2,3,4,5}
+	&a[1] is 2
+		
+	Recurse 2
+	{2,3,4,5}
+	Now, 2 at a[0]
+	&a[1] is 3
+	
+	Recurse 3
+	{3,4,5}
+	Now, 3 is at a[0]
+	&a[1] is 4
+	
+	Recurse 4
+	{4,5}
+	Now, &a[1] is 5
+	
+	Recurse 5{5}
+	
+
+## Counting Sort ##
+The requirement is that the size of the value is close to the size of the array
+E.g., if we calculate score and we have 0 to 100 for 5 students, we'll need 100 size frequency array. So, if the value is large, then complexity will approach the size of the frequency
+
+
+## Selection Sort example ##
+void swap(int *a, int *b) {
+  int temp = *a;
+  *a = *b;
+  *b = temp;
+}
+
+void selectionSort(int array[], int size) {
+	for (int i = 0; i < size - 1; i++) {
+		int min_idx = i;
+		for (int j= i + 1; j < size; j++) {
+		// To sort in descending order, change > to < in this line.
+		// Select the minimum element in each loop.
+		if (array[j] < array[min_idx])
+			min_idx = j;
+		}
+	// put min at the correct position
+	int temp = array[min_idx];
+	array[min_idx] = array[i];
+	array[i] = temp;
+	}
+	
+	
+TIC1002 Midterm Test
+Venue: NUS MPSH 6
+Date: Thu 3rd March 2022
+Time: 7.00 - 8.30pm (door opens 30 mins before)
+
+TIC1002 Practical Exam 1
+Venue: COM1 Programming Labs
+Date: Sat 5th March 2022
+Time: 10.00 to 11.30am (door opens 30 mins before. Please come early to test the PC)
